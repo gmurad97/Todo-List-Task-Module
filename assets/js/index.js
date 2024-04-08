@@ -1,0 +1,1 @@
+const MAX_TODO_INPUT_COUNT = 5;

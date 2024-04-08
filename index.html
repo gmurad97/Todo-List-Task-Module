@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="todo">
+            <div class="todo__border"></div>
+            <div class="todo__body">
+                <h1 class="todo__title">To-Do List</h1>
+                <div class="todo__sort-icon" id="todo_sort">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                </div>
+                <ul class="todo__list" id="todo_list">
+                    <li class="todo__item" data-uid="1">
+                        <input type="text" class="todo__item-input" name="backend_name[]" value="Item 1">
+                        <i class="fa-solid fa-xmark todo__item-icon"></i>
+                    </li>
+                    <li class="todo__item" data-uid="1">
+                        <input type="text" class="todo__item-input" name="backend_name[]" value="Item 1">
+                        <i class="fa-solid fa-xmark todo__item-icon"></i>
+                    </li>
+                    <li class="todo__item" data-uid="1">
+                        <input type="text" class="todo__item-input" name="backend_name[]" value="Item 1">
+                        <i class="fa-solid fa-xmark todo__item-icon"></i>
+                    </li>
+                    <li class="todo__item" data-uid="1">
+                        <input type="text" class="todo__item-input" name="backend_name[]" value="Item 1">
+                        <i class="fa-solid fa-xmark todo__item-icon"></i>
+                    </li>
+                    <li class="todo__item" data-uid="1">
+                        <input type="text" class="todo__item-input" name="backend_name[]" value="Item 1">
+                        <i class="fa-solid fa-xmark todo__item-icon"></i>
+                    </li>
+                </ul>
+                <div class="todo__add-block">
+                    <button type="button" class="todo__add-btn" id="todo_add_btn">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/fa.js"></script>
+    <script src="assets/js/index.js"></script>
+</body>
+
+</html>
