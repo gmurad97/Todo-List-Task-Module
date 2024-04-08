@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 *,
 *::before,
@@ -8,21 +8,28 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #FFFFFF;
     font-family: "Roboto";
 }
 
-.wrapper {
+.section {
     width: 100%;
     height: 100dvh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #FFFFFF;
+    scroll-snap-align: start;
 }
 
-.todo {
+.todo__container {
     width: 336px;
     height: auto;
     display: flex;
@@ -34,7 +41,7 @@ body {
     overflow: hidden;
 }
 
-.todo__border {
+.todo__top-border {
     width: 100%;
     height: 28px;
     background-color: #FFDC40;
@@ -51,135 +58,110 @@ body {
 }
 
 .todo__title {
-    font-weight: 900;
     font-size: 26px;
+    font-weight: 900;
     line-height: 30.47px;
     text-align: center;
+    text-transform: capitalize;
 }
 
-.todo__sort-icon {
+.todo__control-block {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 16px;
-    margin-bottom: 11px;
-
+    margin-bottom: 8px;
+    margin-top: 12px;
 }
 
-.todo__sort-icon>i {
+.todo__control-block>i {
+    font-size: 22px;
     color: #C4C4C4;
-    cursor: pointer;
     transition: color 128ms linear;
+    cursor: pointer;
 }
 
-.todo__sort-icon>i:hover {
+.todo__control-block>i:hover {
     color: #000000;
 }
 
-.todo__list {
+.todo__block {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    list-style-type: none;
-    border: 1px solid #C4C4C4;
-    border-radius: 10px;
-    padding: 8px 16px;
 }
 
 .todo__item {
     position: relative;
     width: 100%;
     height: auto;
-}
-
-.todo__item:not(:first-of-type){
-    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
 }
 
 .todo__item-input {
-    width: 100%;
     outline: none;
-    border: none;
-    padding: 6px 32px 6px 6px;
+    border: 1px solid #C4C4C4;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.41px;
+    padding: 8px 60px 8px 20px;
 }
 
-.todo__item-input:focus {
-    border: 1px solid #C4C4C4;
-    border-radius: 10px;
-}
-
-#todo_input{
-    border: 1px solid #C4C4C4;
-    border-radius: 10px;
-}
-
-.todo__item-icon {
+.todo__item>i {
     position: absolute;
-    right: 6px;
     top: 50%;
+    right: 20px;
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid #C4C4C4;
     border-radius: 50%;
     color: #C4C4C4;
-    transition: background-color 128ms linear, color 128ms linear, border-color 128ms linear;
+    transition: background-color 128ms linear, border-color 128ms linear, color 128ms linear;
     cursor: pointer;
 }
 
-.todo__item-icon:hover {
+.todo__item>i:hover {
     background-color: #833AE0;
     border-color: #833AE0;
     color: #FFFFFF;
 }
 
-.todo__add-block {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-.todo__add-btn {
+
+
+
+.todo__create-btn {
     position: relative;
+    width: 150px;
     height: 42px;
-    width: auto;
     background-color: #833AE0;
     outline: none;
     border: none;
     border-radius: 71px;
+    color: #FFFFFF;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.41px;
-    text-align: center;
-    color: #FFFFFF;
-    padding: 10px 22px 10px 54px;
-    margin-top: 18px;
+    padding: 8px 8px 8px 42px;
     overflow: hidden;
     transition: background-color 128ms linear;
     cursor: pointer;
 }
 
-.todo__add-btn:hover{
-    background-color: #9953F1;
-}
-
-.todo__add-btn::before {
+.todo__create-btn::before {
     content: "\2b";
     position: absolute;
     top: 0px;
@@ -195,6 +177,35 @@ body {
     transition: background-color 128ms linear;
 }
 
-.todo__add-btn:hover::before{
+.todo__create-btn:hover {
+    background-color: #9953F1;
+}
+
+.todo__create-btn:hover::before {
     background-color: #AA68FE;
+}
+
+.author {
+    background-color: #000000;
+
+}
+
+.author__link {
+    font-size: 64px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 24px;
+    color: #00AA00;
+    animation: spring 2s linear infinite alternate forwards;
+}
+
+@keyframes spring {
+    from {
+        letter-spacing: 24px;
+    }
+
+    to {
+        letter-spacing: 22px;
+    }
 }

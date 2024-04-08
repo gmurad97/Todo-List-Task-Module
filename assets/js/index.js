@@ -1,67 +1,80 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
+    let SORT_DIRECTION = "ASC";
     const MAX_TASKS = 5;
-    const todoList = document.getElementById('todo_list');
-    const addButton = document.getElementById('todo_add_btn');
-    let sortDirection = 'asc';
+    const TODO_LIST = document.querySelector("#todo_list");
+    const TODO_ADD_BUTTON = document.querySelector("#todo_add");
+    const TODO_SORT_BTN = document.querySelector("#todo-sort");
 
-    addButton.addEventListener('click', addTaskInput);
-    todoList.addEventListener('click', function(event) {
-        if (event.target.classList.contains('todo__item-icon')) {
-            removeTaskInput(event.target);
-        }
-    });
-
-    const sortIcon = document.getElementById('todo_sort');
-    sortIcon.addEventListener('click', function() {
-        sortList();
-    });
-
-    function addTaskInput() {
-        if (todoList.children.length < MAX_TASKS) {
-            const taskInput = createTaskInput();
-            const removeButton = createRemoveButton();
-            const taskItem = document.createElement('li');
-            taskItem.classList.add('todo__item');
-            taskItem.setAttribute('data-uid', todoList.children.length + 1);
+    /**
+     * @param {HTMLUListElement} collectionBlock 
+     */
+    function addNewTask(collectionBlock) {
+        const existingTaskInputs = collectionBlock.querySelectorAll(".todo__item-input");
+        let isEmptyField = false;
+        existingTaskInputs.forEach(input => {
+            if (input.value.trim() === "") {
+                isEmptyField = true;
+                return;
+            }
+        });
+        if (!isEmptyField) {
+            const taskInput = document.createElement("input");
+            taskInput.classList.add("todo__item-input");
+            taskInput.type = "text";
+            taskInput.name = "backend_name[]";
+            taskInput.placeholder = "Please enter todo item";
+            const removeButton = document.createElement("i");
+            removeButton.classList.add("fa-solid", "fa-xmark");
+            const taskItem = document.createElement("div");
+            taskItem.classList.add("todo__item");
             taskItem.appendChild(taskInput);
             taskItem.appendChild(removeButton);
-            todoList.appendChild(taskItem);
+            collectionBlock.appendChild(taskItem);
         } else {
-            alert("Limit!5 input!");
+            Swal.fire({
+                "title": "Info",
+                "icon": "info",
+                "confirmButtonText": "Okey!",
+                "text": "Please fill in the existing empty todo item first."
+            });
         }
     }
 
-    function createTaskInput() {
-        const taskInput = document.createElement('input');
-        taskInput.setAttribute('type', 'text');
-        taskInput.setAttribute('class', 'todo__item-input');
-        taskInput.setAttribute('name', 'backend_name[]');
-        taskInput.setAttribute('placeholder', 'Please enter todo item');
-        return taskInput;
-    }
-
-    function createRemoveButton() {
-        const removeButton = document.createElement('i');
-        removeButton.classList.add('fa-solid', 'fa-xmark', 'todo__item-icon');
-        return removeButton;
-    }
-
-    function removeTaskInput(icon) {
-        const taskItem = icon.parentElement;
-        if (todoList.children.length > 1) {
-            taskItem.remove();
+    TODO_ADD_BUTTON.addEventListener("click", function () {
+        if (TODO_LIST.children.length < MAX_TASKS) {
+            addNewTask(TODO_LIST);
         }
-    }
+        else {
+            Swal.fire({
+                "title": "Info",
+                "icon": "info",
+                "confirmButtonText": "Okey!",
+                "text": "You can\'t add more than 5 tasks."
+            });
+        }
+    });
 
-    function sortList() {
-        const tasks = Array.from(todoList.children);
-        tasks.sort((a, b) => {
-            const textA = a.querySelector('.todo__item-input').value.toUpperCase();
-            const textB = b.querySelector('.todo__item-input').value.toUpperCase();
-            return sortDirection === 'asc' ? textA.localeCompare(textB) : textB.localeCompare(textA);
+    TODO_LIST.addEventListener("click", function (event) {
+        if (event.target.classList.contains("fa-xmark")) {
+            const taskItem = event.target.parentElement;
+            if (TODO_LIST.children.length > 1) {
+                taskItem.remove();
+            }
+        }
+    });
+
+    TODO_SORT_BTN.addEventListener("click", function () {
+        const emptyInputs = Array.from(TODO_LIST.querySelectorAll('.todo__item-input')).filter(
+            input => input.value.trim() === "");
+        emptyInputs.forEach(emptyInputs => emptyInputs.parentElement.remove());
+        const taskList = Array.from(TODO_LIST.children);
+        taskList.sort((a, b) => {
+            const textA = a.querySelector(".todo__item-input").value.toUpperCase();
+            const textB = b.querySelector(".todo__item-input").value.toUpperCase();
+            return SORT_DIRECTION.toUpperCase() === "ASC" ? textA.localeCompare(textB) : textB.localeCompare(textA);
         });
-        todoList.innerHTML = '';
-        tasks.forEach(task => todoList.appendChild(task));
-        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-    }
+        TODO_LIST.innerHTML = "";
+        taskList.forEach(task => TODO_LIST.appendChild(task))
+        SORT_DIRECTION = (SORT_DIRECTION.toUpperCase() === "ASC" ? "DESC" : "ASC");
+    });
 });
