@@ -98,7 +98,7 @@ body {
     height: auto;
 }
 
-.todo__item:not(:last-of-type){
+.todo__item:not(:first-of-type){
     margin-bottom: 8px;
 }
 
@@ -113,6 +113,11 @@ body {
 }
 
 .todo__item-input:focus {
+    border: 1px solid #C4C4C4;
+    border-radius: 10px;
+}
+
+#todo_input{
     border: 1px solid #C4C4C4;
     border-radius: 10px;
 }
@@ -140,16 +145,6 @@ body {
     border-color: #833AE0;
     color: #FFFFFF;
 }
-
-
-
-
-
-
-
-
-
-
 
 .todo__add-block {
     width: 100%;
