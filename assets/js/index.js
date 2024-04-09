@@ -40,6 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function sortDirectionIcon() {
+        SORT_DIRECTION === "ASC" ?
+            TODO_SORT_BTN.querySelector("i").classList.replace("fa-arrow-down-short-wide", "fa-arrow-up-short-wide") :
+            TODO_SORT_BTN.querySelector("i").classList.replace("fa-arrow-up-short-wide", "fa-arrow-down-short-wide")
+    }
+
+    sortDirectionIcon();
+
     TODO_ADD_BUTTON.addEventListener("click", function () {
         if (TODO_LIST.children.length < MAX_TASKS) {
             addNewTask(TODO_LIST);
@@ -76,5 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
         TODO_LIST.innerHTML = "";
         taskList.forEach(task => TODO_LIST.appendChild(task))
         SORT_DIRECTION = (SORT_DIRECTION.toUpperCase() === "ASC" ? "DESC" : "ASC");
+        sortDirectionIcon();
     });
 });
